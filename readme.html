@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Pengguna - FolderAnalyzer</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --code-bg: #f1f5f9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        header h1 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--primary-dark); }
+        header p { color: var(--text-muted); }
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        nav.toc {
+            background: var(--surface);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        nav.toc h2 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+        nav.toc ul { list-style: none; columns: 2; gap: 1.5rem; }
+        nav.toc li { margin-bottom: 0.5rem; }
+        nav.toc a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav.toc a:hover { color: var(--primary-dark); text-decoration: underline; }
+        section {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+        h2 { font-size: 1.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+        h3 { font-size: 1.2rem; margin: 1.25rem 0 0.75rem; color: var(--primary-dark); }
+        p, li { margin-bottom: 0.75rem; }
+        ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+        code {
+            background: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.9em;
+        }
+        .note, .warning, .tip {
+            padding: 1rem;
+            border-left: 4px solid;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            margin: 1rem 0;
+            background: var(--code-bg);
+        }
+        .note { border-color: var(--primary); }
+        .warning { border-color: var(--warning); background: #fffbeb; }
+        .tip { border-color: var(--success); background: #ecfdf5; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        th { background: var(--code-bg); font-weight: 600; }
+        .key-combo {
+            display: inline-flex;
+            gap: 0.25rem;
+            margin: 0 0.25rem;
+        }
+        kbd {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-bottom: 2px solid var(--border);
+            border-radius: 4px;
+            padding: 0.15rem 0.4rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            box-shadow: 0 1px 0 var(--border);
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        @media (max-width: 768px) {
+            nav.toc ul { columns: 1; }
+            .container { padding: 1rem; }
+        }
+        @media print {
+            body { background: white; }
+            section, nav.toc { box-shadow: none; border: 1px solid #ddd; }
+            nav.toc { page-break-inside: avoid; }
+            a { color: inherit; text-decoration: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📦 FolderAnalyzer</h1>
+            <p>Manual Pengguna Resmi &bull; Analisis Kapasitas &amp; Pencarian Duplikat File</p>
+            <span class="badge">Versi 1.0 &bull; Portable Windows</span>
+        </header>
+
+        <nav class="toc">
+            <h2>📑 Daftar Isi</h2>
+            <ul>
+                <li><a href="#pendahuluan">1. Pendahuluan</a></li>
+                <li><a href="#persyaratan">2. Persyaratan Sistem</a></li>
+                <li><a href="#instalasi">3. Instalasi &amp; Menjalankan</a></li>
+                <li><a href="#antarmuka">4. Antarmuka Pengguna</a></li>
+                <li><a href="#mode-kapasitas">5. Mode Analisis Kapasitas</a></li>
+                <li><a href="#mode-duplikat">6. Mode Pencarian Duplikat</a></li>
+                <li><a href="#interaksi">7. Interaksi &amp; Navigasi</a></li>
+                <li><a href="#faq">8. FAQ &amp; Troubleshooting</a></li>
+                <li><a href="#tips">9. Tips &amp; Praktik Terbaik</a></li>
+            </ul>
+        </nav>
+
+        <section id="pendahuluan">
+            <h2>1. Pendahuluan</h2>
+            <p><strong>FolderAnalyzer</strong> adalah aplikasi desktop ringan berbasis Python yang dirancang untuk membantu Anda:</p>
+            <ul>
+                <li>📊 Menganalisis penggunaan ruang penyimpanan folder secara hierarkis.</li>
+                <li>🔍 Menemukan file duplikat berdasarkan hash MD5 (akurat &amp; cepat).</li>
+                <li>🗑️ Menghapus file/folder duplikat atau tidak terpakai secara aman.</li>
+                <li> Berjalan tanpa instalasi Python (portable <code>.exe</code>).</li>
+            </ul>
+            <div class="note">Aplikasi ini <strong>tidak mengubah, memindahkan, atau mengunggah</strong> data Anda. Semua proses berjalan lokal di komputer Anda.</div>
+        </section>
+
+        <section id="persyaratan">
+            <h2>2. Persyaratan Sistem</h2>
+            <table>
+                <tr><th>Komponen</th><th>Spesifikasi Minimum</th></tr>
+                <tr><td>Sistem Operasi</td><td>Windows 10 / 11 (64-bit)</td></tr>
+                <tr><td>RAM</td><td>2 GB tersedia</td></tr>
+                <tr><td>Penyimpanan</td><td>~15 MB untuk file aplikasi</td></tr>
+                <tr><td>Dependensi</td><td>Visual C++ Redistributable (biasanya sudah terinstal)</td></tr>
+            </table>
+            <div class="warning">️ Aplikasi ini <strong>tidak memerlukan Python</strong> terinstal di komputer target. Cukup extract folder <code>dist/FolderAnalyzer/</code> dan jalankan.</div>
+        </section>
+
+        <section id="instalasi">
+            <h2>3. Instalasi &amp; Menjalankan</h2>
+            <ol>
+                <li>Ekstrak folder <code>FolderAnalyzer.zip</code> (atau copy folder <code>dist/FolderAnalyzer/</code> hasil build).</li>
+                <li>Buka folder tersebut, lalu double-click <code>FolderAnalyzer.exe</code>.</li>
+                <li>Jika muncul peringatan <em>Windows SmartScreen</em>, klik <strong>Info selengkapnya</strong> → <strong>Jalankan saja</strong>.</li>
+                <li>Aplikasi akan terbuka dalam beberapa detik. Tidak ada proses instalasi.</li>
+            </ol>
+            <div class="tip">💡 Untuk akses penuh ke folder sistem (misal: <code>C:\Windows</code> atau <code>Program Files</code>, jalankan <code>FolderAnalyzer.exe</code> sebagai <strong>Administrator</strong> (klik kanan → Run as administrator).</div>
+        </section>
+
+        <section id="antarmuka">
+            <h2>4. Antarmuka Pengguna</h2>
+            <table>
+                <tr><th>Elemen</th><th>Fungsi</th></tr>
+                <tr><td>⚙️ Mode Operasi</td><td>Pilih antara <strong>Analisis Kapasitas</strong> atau <strong>Cari Duplikat (MD5)</strong></td></tr>
+                <tr><td>📂 Path Folder</td><td>Input lokasi folder yang akan dianalisis (bisa diketik atau klik <em>Cari</em>)</td></tr>
+                <tr><td>▶️ Mulai / ⛔ Hentikan</td><td>Mulai proses analisis atau batalkan secara aman</td></tr>
+                <tr><td> Progress Bar</td><td>Menunjukkan persentase kemajuan pemrosesan file</td></tr>
+                <tr><td>📑 Tab Notebook</td><td>Memisahkan tampilan hasil kapasitas &amp; duplikat</td></tr>
+                <tr><td>🗑️ Hapus Duplikat</td><td>Aktif hanya di mode duplikat untuk menghapus file terpilih</td></tr>
+            </table>
+        </section>
+
+        <section id="mode-kapasitas">
+            <h2>5. Mode Analisis Kapasitas</h2>
+            <p>Mode ini menampilkan struktur folder dalam bentuk <strong>pohon hierarkis</strong> lengkap dengan ukuran akumulatif.</p>
+            <h3>Cara Menggunakan:</h3>
+            <ol>
+                <li>Pilih <strong> Analisis Kapasitas</strong>.</li>
+                <li>Masukkan path folder → klik <strong>Mulai Analisis</strong>.</li>
+                <li>Tunggu progress selesai. Hasil akan muncul di tab <em>Pohon Folder &amp; Ukuran</em>.</li>
+                <li>Klik ikon <strong>▶/▼</strong> atau <kbd>Double-Click</kbd> pada folder untuk <em>expand/collapse</em>.</li>
+                <li>Klik header kolom (<em>Nama, Tipe, Ukuran, Path</em>) untuk mengurutkan data.</li>
+            </ol>
+            <div class="note">Ukuran folder dihitung secara <strong>rekursif</strong> (menjumlahkan semua file &amp; subfolder di dalamnya).</div>
+        </section>
+
+        <section id="mode-duplikat">
+            <h2>6. Mode Pencarian Duplikat</h2>
+            <p>Mode ini mencari file dengan konten identik menggunakan algoritma hash <strong>MD5</strong>. Proses dioptimalkan dengan filter ukuran file terlebih dahulu.</p>
+            <h3>Cara Menggunakan:</h3>
+            <ol>
+                <li>Pilih <strong>🔍 Cari Duplikat (MD5)</strong>.</li>
+                <li>Masukkan path folder → klik <strong>Mulai Analisis</strong>.</li>
+                <li>Hasil muncul di tab <em>File Duplikat</em> dalam bentuk grup berdasarkan hash.</li>
+                <li>Klik baris grup → tombol <strong>🗑️ Hapus Duplikat</strong> akan aktif.</li>
+                <li>Konfirmasi penghapusan. File pertama dalam grup akan dihapus permanen.</li>
+            </ol>
+            <div class="warning">⚠️ Penghapusan bersifat <strong>permanen</strong> (tidak masuk Recycle Bin). Pastikan file yang dihapus benar-benar salinan.</div>
+        </section>
+
+        <section id="interaksi">
+            <h2>7. Interaksi &amp; Navigasi</h2>
+            <table>
+                <tr><th>Aksi</th><th>Hasil</th></tr>
+                <tr><td><kbd>Double-Click</kbd> pada Folder</td><td>Expand / Collapse isi folder</td></tr>
+                <tr><td><kbd>Double-Click</kbd> pada File</td><td>Buka file dengan aplikasi default sistem</td></tr>
+                <tr><td><kbd>Klik Kanan</kbd> pada Item</td><td>Buka menu konteks: Expand/Collapse atau Hapus</td></tr>
+                <tr><td><kbd>Klik Header Kolom</kbd></td><td>Urutkan data Ascending / Descending</td></tr>
+                <tr><td><kbd>Ctrl+S</kbd> (di VSCode)</td><td>Pastikan kode tersimpan sebelum rebuild <code>.exe</code></td></tr>
+            </table>
+        </section>
+
+        <section id="faq">
+            <h2>8. FAQ &amp; Troubleshooting</h2>
+            <h3>❓ Aplikasi tidak terbuka / muncul error DLL</h3>
+            <p>Pastikan Anda mendistribusikan <strong>seluruh folder</strong> <code>dist/FolderAnalyzer/</code>, bukan hanya file <code>.exe</code>-nya. Folder <code>_internal/</code> wajib ikut karena berisi dependensi Python &amp; Tkinter.</p>
+
+            <h3>❓ Progress bar berhenti di 0% atau 99%</h3>
+            <p>Ini normal jika folder berisi banyak file kecil atau ada symlink. Aplikasi tetap berjalan di background. Gunakan tombol <strong>⛔ Hentikan</strong> jika ingin membatalkan.</p>
+
+            <h3>❓ Muncul <em>Permission Denied</em> saat hapus/scan</h3>
+            <p>Jalankan aplikasi sebagai <strong>Administrator</strong> atau pastikan tidak ada program lain yang mengunci file tersebut (misal: antivirus, explorer, atau editor).</p>
+
+            <h3>❓ Hasil duplikat terlihat salah</h3>
+            <p>Algoritma hanya mencocokkan file dengan <strong>ukuran byte identik</strong> terlebih dahulu, lalu menghitung MD5. Jika ukuran sama tapi konten berbeda, tidak akan terdeteksi sebagai duplikat (akurat).</p>
+        </section>
+
+        <section id="tips">
+            <h2>9. Tips &amp; Praktik Terbaik</h2>
+            <ul>
+                <li>🔒 <strong>Backup dulu:</strong> Sebelum menghapus duplikat massal, salin folder penting ke drive eksternal.</li>
+                <li>📁 <strong>Scan bertahap:</strong> Untuk drive besar, analisis per folder utama (misal: <code>D:\Dokumen</code>, lalu <code>D:\Foto</code>) agar lebih cepat.</li>
+                <li>🔄 <strong>Rebuild aplikasi:</strong> Jika Anda mengembangkan fitur baru, jalankan perintah build di terminal VSCode:<br>
+                <code>Remove-Item -Recurse -Force build, dist, *.spec -ErrorAction SilentlyContinue; .\build_env\Scripts\pyinstaller.exe --onedir --windowed --name "FolderAnalyzer" --collect-all tkinter chech-folder.py</code></li>
+                <li>📦 <strong>Distribusi:</strong> Kompres folder <code>dist/FolderAnalyzer/</code> menjadi <code>.zip</code> sebelum dibagikan. Penerima cukup extract &amp; jalankan.</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>📘 Manual Pengguna FolderAnalyzer &bull; Dibuat untuk penggunaan internal &amp; distribusi portabel</p>
+            <p>Versi Dokumen: 1.0 &bull; Tanggal: 26 Mei 2026 &bull; © 2026 Developer</p>
+            <p style="margin-top:0.5rem; font-size:0.8rem;">Aplikasi ini disediakan "sebagaimana adanya". Gunakan dengan tanggung jawab Anda sendiri.</p>
+        </footer>
+    </div>
+</body>
+</html>
