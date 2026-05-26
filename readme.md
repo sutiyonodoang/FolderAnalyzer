@@ -17,6 +17,19 @@ Aplikasi desktop ringan untuk **analisis kapasitas penyimpanan** dan **pencarian
 | 📦 **Portable** | Distribusi via PyInstaller (`dist/`), siap pakai di Windows tanpa Python |
 
 ---
+## 📦 Instalasi & Penggunaan Versi Portable
+### 📥 Langkah Instalasi
+Download folder FolderAnalyzer (berisi .exe & folder _internal).
+Ekstrak ke lokasi yang diinginkan (misal: C:\Tools\FolderAnalyzer atau flashdisk).
+Buka folder → double-click FolderAnalyzer.exe.
+(Opsional) Klik kanan FolderAnalyzer.exe → Send to → Desktop (create shortcut).
+⚠️ PENTING:
+JANGAN HAPUS folder _internal. Folder ini berisi library Python, DLL, dan resource Tkinter yang wajib agar aplikasi bisa berjalan.
+Aplikasi ini tidak memerlukan instalasi. Cukup copy-paste folder ke PC mana pun dan langsung bisa dipakai.
+### 🔄 Update Aplikasi
+Hapus folder FolderAnalyzer lama.
+Ekstrak versi baru ke lokasi yang sama.
+Jalankan .exe seperti biasa. Konfigurasi & preferensi tidak tersimpan di registry (stateless).
 
 ## 📘 Manual Penggunaan
 
